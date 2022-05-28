@@ -110,6 +110,13 @@ public class Config {
     };
 
     private static Class[] sSupportedProfiles = new Class[0];
+    
+    // Savitech Add -- A2DP_Source_Sink_Switch
+    private static boolean isBluetoothPersistedA2DPSinkOn(Context context) {
+        final ContentResolver resolver = context.getContentResolver();
+        int state = Settings.Global.getInt(resolver, Settings.Global.BLUETOOTH_A2DP_SINK, 0);
+        return (state != 0);
+    }
 
     private static boolean sIsGdEnabledUptoScanningLayer = false;
 
@@ -138,6 +145,20 @@ public class Config {
                 Log.v(TAG, config.mClass.getSimpleName() + " Feature Flag set to " + supported
                         + " by components configuration");
             }
+            
+            /* Savitech Add -- A2DP_Source_Sink_Switch
+             * 	check a2dp sink persist settings to load A2DP sink or not
+             * */
+             /*
+            if (supported == true && config.mClass == A2dpSinkService.class) {
+                if (isBluetoothPersistedA2DPSinkOn(ctx)) {
+                    Log.d(TAG, "A2DP sink service load");
+                    supported = true;
+                } else {
+                    Log.d(TAG, "A2DP sink service not load");
+                    supported = false;
+                }
+            */
 
             if (supported && !isProfileDisabled(ctx, config.mMask)) {
                 Log.v(TAG, "Adding " + config.mClass.getSimpleName());

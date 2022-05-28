@@ -219,6 +219,35 @@ public class A2dpNativeInterface {
             return false;
         }
     }
+    
+    /************************************************
+     * Savitech LHDC EXT API -- START
+     ***********************************************/
+    public int getLhdcCodecExtendApiVer(BluetoothDevice device, byte[] exApiVer) {
+        return getLhdcCodecExtendApiVerNative(getByteAddress(device), exApiVer);
+    }
+    public int getLhdcCodecExtendApiConfigAr(BluetoothDevice device, byte[] codecConfig) {
+        return getLhdcCodecExtendApiConfigNative(getByteAddress(device), codecConfig);
+    }
+    public int setLhdcCodecExtendApiConfigAr(BluetoothDevice device, byte[] codecConfig) {
+        return setLhdcCodecExtendApiConfigNative(getByteAddress(device), codecConfig);
+    }
+    public int getLhdcCodecExtendApiConfigMeta(BluetoothDevice device, byte[] codecConfig) {
+        return getLhdcCodecExtendApiConfigNative(getByteAddress(device), codecConfig);
+    }
+    public int getLhdcCodecExtendApiConfigA2dpCodecSpecific(BluetoothDevice device, byte[] codecConfig) {
+        return getLhdcCodecExtendApiConfigNative(getByteAddress(device), codecConfig);
+    }
+    public int setLhdcCodecExtendApiConfigMeta(BluetoothDevice device, byte[] codecConfig) {
+        return setLhdcCodecExtendApiConfigNative(getByteAddress(device), codecConfig);
+    }
+    public void setLhdcCodecExtendApiDataGyro2D(BluetoothDevice device, byte[] codecData) {
+    	setLhdcCodecExtendApiDataNative(getByteAddress(device), codecData);
+    }
+    
+    /************************************************
+     * Savitech LHDC EXT API -- END
+     ***********************************************/
 
     // Native methods that call into the JNI interface
     private static native void classInitNative();
@@ -232,4 +261,10 @@ public class A2dpNativeInterface {
     private native boolean setActiveDeviceNative(byte[] address);
     private native boolean setCodecConfigPreferenceNative(byte[] address,
                 BluetoothCodecConfig[] codecConfigArray);
+    // Savitech LHDC EXT API
+    private native int getLhdcCodecExtendApiVerNative(byte[] address, byte[] exApiVer);
+    private native int setLhdcCodecExtendApiConfigNative(byte[] address, byte[] codecConfig);
+    private native int getLhdcCodecExtendApiConfigNative(byte[] address, byte[] codecConfig);
+    private native int getLhdcCodecExtendApiA2dpCodecConfigNative(byte[] address, byte[] codecConfig);
+    private native void setLhdcCodecExtendApiDataNative(byte[] address, byte[] codecData);
 }
